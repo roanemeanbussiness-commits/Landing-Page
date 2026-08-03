@@ -120,6 +120,12 @@ img{max-width:100%;display:block}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .45s var(--ease)}
 .faq-a p{padding:0 22px 20px;font-size:14.5px;color:var(--muted);line-height:1.6}
 
+/* ===== free resource ===== */
+.freebie{padding:clamp(56px,8vw,96px) clamp(20px,5vw,56px);text-align:center;border-top:1px solid var(--line-soft);
+  background:radial-gradient(circle at 50% 0%,rgba(241,195,56,.08),transparent 55%)}
+.freebie h2{font-size:clamp(24px,3.4vw,36px);font-weight:800;letter-spacing:-.02em;margin:14px 0 12px}
+.freebie-sub{color:var(--muted);max-width:44ch;margin:0 auto 30px;font-weight:300;font-size:clamp(15px,1.6vw,17px)}
+
 /* ===== footer ===== */
 .foot{border-top:1px solid var(--line-soft);padding:40px clamp(20px,5vw,56px);text-align:center}
 .foot-links{display:flex;gap:26px;justify-content:center;margin-bottom:18px}
