@@ -8,58 +8,61 @@
 <meta property="og:title" content="Work With Jahan — Clone Your Mind, Run Your Business" />
 <meta property="og:description" content="One on one. We clone how you actually think and wire it into your business, so it runs your departments exactly how you would." />
 <meta property="og:type" content="website" />
-<meta name="theme-color" content="#ffffff" />
+<meta name="theme-color" content="#0b0a08" />
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/style.css?v=1" />
+<link rel="stylesheet" href="css/style.css?v=2" />
 </head>
 <body>
 
-<main class="wrap">
+<!-- ===== TOP BAR ===== -->
+<header class="topbar" id="top">
+  <a class="brand" href="#top">
+    <span class="brand-logo" id="brandLogo"><img id="logoImg" src="assets/logo.png" alt="Aethon Intelligence" /></span>
+    <span class="brand-word">AETHON INTELLIGENCE<i>1 · ON · 1 DIGITAL CLONING</i></span>
+  </a>
+  <div class="topbar-cta">
+    <a href="#apply" class="btn btn-sm">Apply now</a>
+    <span class="topbar-note">Limited 1-on-1 spots</span>
+  </div>
+</header>
 
-  <!-- ===== BRAND / LOGO ===== -->
-  <header class="brand">
-    <div class="brand-logo" id="brandLogo"></div>
-    <div class="brand-name">AETHON INTELLIGENCE</div>
-    <div class="brand-sub">1&nbsp;·&nbsp;ON&nbsp;·&nbsp;1&nbsp;&nbsp;DIGITAL&nbsp;CLONING</div>
-  </header>
+<main>
 
-  <!-- ===== HERO ===== -->
+  <!-- ===== HERO (two column) ===== -->
   <section class="hero">
-    <h1>
-      Clone how <span class="hl">you</span> think and run your
-      <span class="hl">entire business</span> — exactly how you would.
-    </h1>
-    <p class="sub">
-      Work with Jahan one on one to build a digital version of you. One that runs your
-      departments on <b>your logic, your standards, your judgment.</b> Not a generic bot. You.
-    </p>
-  </section>
+    <div class="hero-copy">
+      <span class="eyebrow">CLONE YOUR MIND · RUN YOUR BUSINESS</span>
+      <h1>Clone how <span class="hl">you</span> think and run your <span class="hl">entire business</span> — exactly how you would.</h1>
+      <p class="sub">Work with Jahan one on one to build a digital version of you. One that runs your departments on <b>your logic, your standards, your judgment.</b> Not a generic bot. You.</p>
+      <div class="hero-actions">
+        <a href="#apply" class="btn">Apply now <i>→</i></a>
+        <a href="#discover" class="btn btn-ghost">See what you get</a>
+      </div>
+      <p class="fineprint">Limited 1-on-1 spots. Applications reviewed personally.</p>
+    </div>
 
-  <!-- ===== VSL ===== -->
-  <section class="vsl-wrap">
-    <div class="vsl" id="vsl">
-      <video id="vslVideo" poster="assets/poster.jpg" playsinline preload="metadata">
-        <source src="assets/vsl.mp4" type="video/mp4" />
-      </video>
-      <button class="vsl-play" id="vslPlay" aria-label="Play the video">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-      </button>
-      <span class="vsl-chip">WATCH THIS FIRST</span>
+    <div class="hero-media">
+      <div class="vsl" id="vsl">
+        <video id="vslVideo" poster="assets/poster.jpg" playsinline preload="metadata">
+          <source src="assets/vsl.mp4" type="video/mp4" />
+        </video>
+        <button class="vsl-play" id="vslPlay" aria-label="Play the video">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <span class="vsl-chip">WATCH THIS FIRST</span>
+      </div>
     </div>
   </section>
 
-  <!-- ===== CTA ===== -->
-  <section class="cta-block">
-    <a href="#apply" class="btn">APPLY NOW <i>→</i></a>
-    <p class="fineprint">Limited 1-on-1 spots. Applications reviewed personally.</p>
-  </section>
-
   <!-- ===== WHAT YOU GET ===== -->
-  <section class="discover">
-    <h2>Here's what you get<br>working with me <span class="hl">1&#8209;on&#8209;1</span></h2>
+  <section class="discover" id="discover">
+    <div class="section-head">
+      <span class="eyebrow">WORKING WITH ME · 1-ON-1</span>
+      <h2>Here's what you get.</h2>
+    </div>
     <div class="cards">
       <article class="card">
         <span class="check" aria-hidden="true">✓</span>
@@ -82,8 +85,10 @@
 
   <!-- ===== APPLY ===== -->
   <section class="apply" id="apply">
-    <span class="eyebrow">APPLY TO WORK WITH JAHAN · 1-ON-1</span>
-    <h3>Answer a few quick questions and book your call below.</h3>
+    <div class="section-head">
+      <span class="eyebrow">APPLY TO WORK WITH JAHAN · 1-ON-1</span>
+      <h2>Answer a few quick questions<br>and book your call.</h2>
+    </div>
     <div class="cal-wrap">
       <div id="my-cal-inline"></div>
     </div>
@@ -91,21 +96,24 @@
 
   <!-- ===== FAQ ===== -->
   <section class="faq">
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">What exactly do you do for me?<i>+</i></button>
-      <div class="faq-a"><p>I build a digital clone of how you think and wire it into your business, so it runs your departments the way you would. We do it together, one on one, start to finish.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">Do I need to be technical?<i>+</i></button>
-      <div class="faq-a"><p>No. You bring your business and your judgment. I handle all of the building. Nothing to code, nothing to manage, nothing to figure out on your own.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">How is this different from other AI?<i>+</i></button>
-      <div class="faq-a"><p>Generic AI runs on generic logic. This runs on yours. It's modeled on your actual decisions, standards, and voice, so it makes the calls you would make, not the calls a template would.</p></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">What happens when I apply?<i>+</i></button>
-      <div class="faq-a"><p>You answer a few quick questions and book a call. If we're a fit, we start mapping how you think and building your clone right away.</p></div>
+    <div class="section-head"><h2>Questions?</h2></div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What exactly do you do for me?<i>+</i></button>
+        <div class="faq-a"><p>I build a digital clone of how you think and wire it into your business, so it runs your departments the way you would. We do it together, one on one, start to finish.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Do I need to be technical?<i>+</i></button>
+        <div class="faq-a"><p>No. You bring your business and your judgment. I handle all of the building. Nothing to code, nothing to manage, nothing to figure out on your own.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">How is this different from other AI?<i>+</i></button>
+        <div class="faq-a"><p>Generic AI runs on generic logic. This runs on yours. It's modeled on your actual decisions, standards, and voice, so it makes the calls you would make, not the calls a template would.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What happens when I apply?<i>+</i></button>
+        <div class="faq-a"><p>You answer a few quick questions and book a call. If we're a fit, we start mapping how you think and building your clone right away.</p></div>
+      </div>
     </div>
   </section>
 
@@ -118,22 +126,22 @@
 
 </main>
 
-<!-- Cal.com booking embed (light, saffron brand) -->
+<!-- Cal.com booking embed (dark, saffron brand) -->
 <script type="text/javascript">
   (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
   Cal("init", "ai-quickstart", { origin: "https://app.cal.com" });
   Cal.ns["ai-quickstart"]("inline", {
     elementOrSelector: "#my-cal-inline",
-    config: { "layout": "month_view" },
+    config: { "layout": "month_view", "theme": "dark" },
     calLink: "jahan-p-2ckhny/ai-quickstart",
   });
   Cal.ns["ai-quickstart"]("ui", {
     "hideEventTypeDetails": false,
     "layout": "month_view",
-    "cssVarsPerTheme": { "light": { "cal-brand": "#e8901e" } }
+    "cssVarsPerTheme": { "dark": { "cal-brand": "#f1c338" } }
   });
 </script>
 
-<script src="js/main.js?v=1"></script>
+<script src="js/main.js?v=2"></script>
 </body>
 </html>
