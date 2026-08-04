@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free Business Audit: See What Your Business Is Leaking</title>
+<meta name="description" content="Answer 12 quick questions. Our auditing agent maps your operation, finds the leaks, and shows you what automation would save you every year." />
+<meta name="theme-color" content="#0a0908" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css?v=4" />
+<link rel="stylesheet" href="css/audit.css?v=1" />
+</head>
+<body class="audit-body">
+
+<header class="topbar">
+  <a class="brand" href="index.html">
+    <span class="brand-logo"><img src="assets/logo.png?v=4" alt="Aethon Intelligence" /></span>
+    <span class="brand-word">AETHON INTELLIGENCE<i>FREE BUSINESS AUDIT</i></span>
+  </a>
+  <div class="topbar-cta">
+    <span class="audit-progress-label" id="progressLabel">1 / 12</span>
+  </div>
+</header>
+
+<div class="audit-progress"><i id="progressBar"></i></div>
+
+<main class="audit-main">
+
+  <!-- ===== INTRO ===== -->
+  <section class="a-screen active" id="intro">
+    <span class="eyebrow">FREE BUSINESS AUDIT · 2 MINUTES</span>
+    <h1>Let's find out what your business is <span class="hl">leaking.</span></h1>
+    <p class="a-sub">Answer 12 quick questions. Our auditing agent maps how your business actually runs, finds where money and time are slipping out, and shows you exactly what the right systems would save you.</p>
+    <ul class="a-points">
+      <li>Takes about 2 minutes</li>
+      <li>Built on real industry benchmarks</li>
+      <li>You get your numbers instantly</li>
+    </ul>
+    <button class="btn" id="startBtn">Start my free audit <i>→</i></button>
+  </section>
+
+  <!-- ===== QUESTIONS (injected) ===== -->
+  <section class="a-screen" id="quiz">
+    <div class="q-head">
+      <span class="q-eyebrow" id="qEyebrow">QUESTION 1</span>
+      <h2 id="qTitle"></h2>
+      <p class="q-hint" id="qHint"></p>
+    </div>
+    <div class="q-options" id="qOptions"></div>
+    <div class="q-nav">
+      <button class="q-back" id="backBtn">← Back</button>
+      <button class="btn q-next" id="nextBtn" disabled>Next <i>→</i></button>
+    </div>
+  </section>
+
+  <!-- ===== ANALYZING ===== -->
+  <section class="a-screen" id="analyzing">
+    <div class="scan">
+      <div class="scan-ring"></div>
+      <div class="scan-core"><img src="assets/logo.png?v=4" alt="" /></div>
+    </div>
+    <h2 class="scan-title">Auditing your business<span class="dots"><i>.</i><i>.</i><i>.</i></span></h2>
+    <ul class="scan-steps" id="scanSteps">
+      <li>Reading your answers</li>
+      <li>Mapping how your operation runs</li>
+      <li>Benchmarking against industry data</li>
+      <li>Finding the leaks</li>
+      <li>Matching the right systems</li>
+      <li>Calculating your savings</li>
+    </ul>
+  </section>
+
+  <!-- ===== REPORT ===== -->
+  <section class="a-screen" id="report">
+    <span class="eyebrow">YOUR AUDIT RESULTS</span>
+    <h1 id="reportTitle">Here's what we found.</h1>
+    <p class="a-sub" id="reportIntro"></p>
+
+    <div class="r-banner">
+      <span class="r-banner-label">ESTIMATED VALUE LEAKING FROM YOUR BUSINESS</span>
+      <div class="r-banner-num"><span id="totalAnnual">$0</span><em>/ year</em></div>
+      <div class="r-banner-sub">That's about <b id="totalFive">$0</b> over the next 5 years, and <b id="totalHours">0 hours</b> of your team's time every single year.</div>
+    </div>
+
+    <div class="r-grid" id="leakGrid"></div>
+
+    <div class="r-systems">
+      <h2>The systems that plug these leaks</h2>
+      <p class="a-sub">Every system is custom coded around how <b>you</b> think and run things. Your logic, your standards. Not a generic bot.</p>
+      <div class="r-sysgrid" id="sysGrid"></div>
+    </div>
+
+    <div class="r-chart">
+      <h3>Your savings over time</h3>
+      <div class="r-bars">
+        <div class="r-bar"><i id="bar1"></i><b id="bar1v">$0</b><span>Year 1</span></div>
+        <div class="r-bar"><i id="bar3"></i><b id="bar3v">$0</b><span>Year 3</span></div>
+        <div class="r-bar"><i id="bar5"></i><b id="bar5v">$0</b><span>Year 5</span></div>
+      </div>
+    </div>
+
+    <div class="r-cta">
+      <h2>Want these numbers back?</h2>
+      <p class="a-sub">Book a free call. We'll walk through your audit together, map your exact systems, and show you what the build looks like.</p>
+      <a href="index.html#apply" class="btn">Book my free audit call <i>→</i></a>
+      <button class="q-back r-restart" id="restartBtn">Retake the audit</button>
+    </div>
+
+    <p class="r-disclaimer">Estimates are based on your answers combined with published industry benchmarks: <a href="https://www.getaira.io/blog/missed-business-calls-statistics" target="_blank" rel="noopener">62% of small business calls go unanswered</a>, <a href="https://dialzara.com/blog/missed-calls-hidden-costs-and-ai-solutions" target="_blank" rel="noopener">missed calls cost SMBs ~$126K/yr</a>, <a href="https://www.chilipiper.com/article/speed-to-lead-statistics" target="_blank" rel="noopener">responding to leads in 5 minutes yields 21x higher qualification</a>, <a href="https://www.timeetc.com/resources/how-to-achieve-more/the-big-price-of-small-tasks-how-entrepreneurs-may-be-unwittingly-keeping-their-businesses-small/" target="_blank" rel="noopener">owners spend ~36% of their week on admin</a>, and <a href="https://www.desk365.io/blog/ai-customer-service-statistics/" target="_blank" rel="noopener">AI cuts service costs 25–30%</a>. Your real numbers get refined on the audit call.</p>
+  </section>
+
+</main>
+
+<script src="js/audit.js?v=1"></script>
+</body>
+</html>
