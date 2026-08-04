@@ -203,6 +203,7 @@
     $('nextBtn').disabled = q.multi ? !(cur && cur.length) : !cur;
     $('backBtn').style.visibility = idx === 0 ? 'hidden' : 'visible';
     setProgress();
+    window.scrollTo({ top: 0 }); // each question starts at the top of the screen
   }
 
   function next() {

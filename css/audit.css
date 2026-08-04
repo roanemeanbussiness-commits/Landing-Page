@@ -107,10 +107,25 @@
 .r-disclaimer a:hover{color:var(--saffron)}
 
 @media(max-width:600px){
-  .q-options{grid-template-columns:1fr}
+  .audit-main{padding-top:24px;padding-bottom:24px}
+  .q-head{margin-bottom:18px}
+  #qTitle{font-size:22px}
+  .q-hint{font-size:13px;margin-top:6px}
+  .q-options{grid-template-columns:1fr;gap:9px}
+  .q-opt{padding:14px 14px 14px 46px;font-size:14.5px;border-radius:12px}
+  .q-opt::before{left:15px;width:17px;height:17px}
+  .q-opt small{font-size:12px}
+  /* keep Next/Back reachable: pin the nav to the bottom of the screen */
+  .q-nav{position:sticky;bottom:0;margin-top:18px;padding:14px 0 16px;
+    background:linear-gradient(180deg,rgba(10,9,8,0),var(--bg) 34%)}
+  .q-nav .btn{flex:1;justify-content:center;padding:15px 22px;font-size:15px}
   .r-grid{grid-template-columns:1fr}
   .r-sys{grid-template-columns:auto 1fr}
   .r-sys .tag{display:none}
-  .q-nav .btn{flex:1;justify-content:center}
+  .r-banner{padding:26px 18px}
+  .r-cta{padding:28px 18px}
   .r-bars{height:170px}
+  #intro h1{font-size:28px}
+  .a-points{margin:22px 0 26px}
+  #intro .btn{width:100%;justify-content:center}
 }

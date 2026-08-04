@@ -57,6 +57,7 @@ img{max-width:100%;display:block}
 .brand-word{display:flex;flex-direction:column;gap:3px;font-weight:800;letter-spacing:.14em;font-size:15px;line-height:1}
 .brand-word i{font-style:normal;font-weight:500;font-size:9px;letter-spacing:.26em;color:var(--saffron);font-family:var(--mono)}
 .topbar-cta{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.topbar-btns{display:flex;align-items:center;gap:10px}
 .topbar-note{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--saffron)}
 
 /* ===== hero ===== */
@@ -148,6 +149,7 @@ img{max-width:100%;display:block}
   .brand-word{font-size:12.5px;letter-spacing:.1em}
   .brand-word i{display:none}
   .topbar-note{display:none}
+  .topbar-btns .btn-ghost{display:none} /* keep one clear CTA in the bar on phones */
   .btn{padding:15px 24px;font-size:15px}
   .btn-sm{padding:10px 18px;font-size:13px}
   .hero{padding-top:32px}
