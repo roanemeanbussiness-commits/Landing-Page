@@ -136,6 +136,51 @@
     }
   ];
 
+  /* ---------------- "OTHER" ESCAPE HATCH ----------------
+     Every question gets a manual-entry option so businesses that do not fit
+     the buckets can type their own answer. Numeric fields are parsed and used
+     directly, which is more accurate than a bucket midpoint. */
+  const OTHER = '__other';
+  const OTHER_META = {
+    industry:    { label: 'Tell us what you do',            ph: 'e.g. veterinary clinic' },
+    teamSize:    { label: 'How many people?',               ph: 'e.g. 8', num: true },
+    revenue:     { label: 'Roughly how much a year?',       ph: 'e.g. $750,000', num: true },
+    custVal:     { label: 'What is one customer worth?',    ph: 'e.g. $850', num: true },
+    leadsWk:     { label: 'How many a week?',               ph: 'e.g. 22', num: true },
+    respTime:    { label: 'How long, typically?',           ph: 'e.g. about two days' },
+    missedCalls: { label: 'What happens instead?',          ph: 'e.g. an answering service takes them' },
+    adminHours:  { label: 'How many hours a week?',         ph: 'e.g. 18', num: true },
+    timeEaters:  { label: 'What else eats the most time?',  ph: 'e.g. permit paperwork' },
+    content:     { label: 'How do you handle it?',          ph: 'e.g. a contractor posts weekly' },
+    awayTest:    { label: 'What actually happens?',         ph: 'e.g. my partner covers for me' },
+    goal:        { label: 'What do you want most?',         ph: 'e.g. open a second location' }
+  };
+  QUESTIONS.forEach(function (q) {
+    q.opts.push({ v: OTHER, t: q.multi ? 'Something else' : 'Other', s: 'Type your own answer' });
+  });
+
+  // pull a number out of free text: "$1,500", "20 hrs", "2.5k" all work
+  function parseNum(s) {
+    if (!s) return null;
+    const m = String(s).replace(/[,\s$]/g, '').match(/(\d+(?:\.\d+)?)\s*([kKmM])?/);
+    if (!m) return null;
+    let n = parseFloat(m[1]);
+    if (m[2]) n *= /[kK]/.test(m[2]) ? 1000 : 1000000;
+    return isFinite(n) && n > 0 ? n : null;
+  }
+
+  // keep a typo (annual revenue typed into "leads per week") from producing a
+  // nonsense headline number. Sane ranges only.
+  const LIMITS = {
+    teamSize: [1, 100000], revenue: [1000, 1000000000], custVal: [1, 1000000],
+    leadsWk: [1, 5000], adminHours: [0.5, 200]
+  };
+  function clampNum(id, n) {
+    const L = LIMITS[id];
+    if (!L || n == null) return n;
+    return Math.min(Math.max(n, L[0]), L[1]);
+  }
+
   /* ---------------- BENCHMARK VALUES ---------------- */
   const HOURLY = { r0: 35, r1: 50, r2: 75, r3: 110, r4: 150, rx: 60 };
   const REV_MID = { r0: 60000, r1: 175000, r2: 600000, r3: 2500000, r4: 7000000, rx: 400000 };
@@ -189,21 +234,61 @@
           const at = arr.indexOf(o.v);
           if (at === -1) arr.push(o.v); else arr.splice(at, 1);
           b.classList.toggle('sel');
-          $('nextBtn').disabled = arr.length === 0;
+          renderOther();
+          syncNext();
         } else {
           answers[q.id] = o.v;
           box.querySelectorAll('.q-opt').forEach(function (x) { x.classList.remove('sel'); });
           b.classList.add('sel');
-          $('nextBtn').disabled = false;
-          setTimeout(next, 260); // auto-advance on single select
+          renderOther();
+          syncNext();
+          if (o.v !== OTHER) setTimeout(next, 260); // auto-advance, but not while typing
         }
       });
       box.appendChild(b);
     });
-    $('nextBtn').disabled = q.multi ? !(cur && cur.length) : !cur;
+    renderOther();
+    syncNext();
     $('backBtn').style.visibility = idx === 0 ? 'hidden' : 'visible';
     setProgress();
     window.scrollTo({ top: 0 }); // each question starts at the top of the screen
+  }
+
+  function otherPicked(q) {
+    const cur = answers[q.id];
+    return q.multi ? (cur || []).indexOf(OTHER) !== -1 : cur === OTHER;
+  }
+
+  function renderOther() {
+    const q = QUESTIONS[idx];
+    const wrap = $('qOther');
+    if (!otherPicked(q)) { wrap.className = 'q-other'; wrap.innerHTML = ''; wrap.dataset.for = ''; return; }
+    const meta = OTHER_META[q.id] || { label: 'Tell us more', ph: 'Type your answer' };
+    if (wrap.dataset.for !== q.id) {
+      wrap.dataset.for = q.id;
+      wrap.innerHTML = '<label for="otherInput">' + meta.label + '</label>' +
+        '<input id="otherInput" type="text" autocomplete="off" placeholder="' + meta.ph + '" />';
+      const inp = wrap.querySelector('input');
+      inp.value = answers[q.id + '_text'] || '';
+      inp.addEventListener('input', function () {
+        answers[q.id + '_text'] = inp.value;
+        if (meta.num) answers[q.id + '_num'] = clampNum(q.id, parseNum(inp.value));
+        syncNext();
+      });
+      inp.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && !$('nextBtn').disabled) next();
+      });
+      setTimeout(function () { inp.focus(); }, 60);
+    }
+    wrap.className = 'q-other show';
+  }
+
+  function syncNext() {
+    const q = QUESTIONS[idx];
+    const cur = answers[q.id];
+    let ok = q.multi ? !!(cur && cur.length) : !!cur;
+    if (ok && otherPicked(q)) ok = !!(answers[q.id + '_text'] || '').trim();
+    $('nextBtn').disabled = !ok;
   }
 
   function next() {
@@ -213,18 +298,38 @@
   function back() { if (idx > 0) { idx--; renderQuestion(); } }
 
   /* ---------------- AUDIT ENGINE ---------------- */
+  // use a typed number when the client entered one, otherwise the bucket midpoint
+  function val(a, id, map, dflt) {
+    if (a[id] === OTHER) { const n = a[id + '_num']; if (n) return n; return dflt; }
+    return map[a[id]] != null ? map[a[id]] : dflt;
+  }
+  function hourlyFromRevenue(rev) {
+    if (rev < 100000) return 35;
+    if (rev < 250000) return 50;
+    if (rev < 1000000) return 75;
+    if (rev < 5000000) return 110;
+    return 150;
+  }
+
   function computeAudit(a) {
-    const hourly = HOURLY[a.revenue] || 60;
-    const custVal = CUST_MID[a.custVal] || 300;
-    const leadsWk = LEADS_MID[a.leadsWk] || 10;
+    const revenue = val(a, 'revenue', REV_MID, 400000);
+    const hourly = a.revenue === OTHER && a.revenue_num
+      ? hourlyFromRevenue(a.revenue_num)
+      : (HOURLY[a.revenue] || 60);
+    const custVal = val(a, 'custVal', CUST_MID, 300);
+    const leadsWk = val(a, 'leadsWk', LEADS_MID, 10);
     const eaters = a.timeEaters || [];
 
+    // custom text answers fall back to a mid-range assumption so the math still runs
+    const missShare = a.missedCalls === OTHER ? 0.15 : (MISS_SHARE[a.missedCalls] || 0);
+    const slowShare = a.respTime === OTHER ? 0.15 : (SLOW_LOSS[a.respTime] || 0);
+
     // Leak 1: missed calls
-    var missedDealsWk = leadsWk * (MISS_SHARE[a.missedCalls] || 0) * RECAPTURE * CLOSE_RATE;
+    var missedDealsWk = leadsWk * missShare * RECAPTURE * CLOSE_RATE;
     var missedLeak = missedDealsWk * custVal * 52;
 
     // Leak 2: slow lead follow-up
-    var slowDealsWk = leadsWk * (SLOW_LOSS[a.respTime] || 0) * RECAPTURE * CLOSE_RATE;
+    var slowDealsWk = leadsWk * slowShare * RECAPTURE * CLOSE_RATE;
     var slowLeak = slowDealsWk * custVal * 52;
 
     // Cap combined lead-side leak so the two channels never double-count
@@ -236,19 +341,31 @@
     }
 
     // Leak 3: repetitive admin
-    var adminWk = ADMIN_MID[a.adminHours] || 7;
+    var adminWk = val(a, 'adminHours', ADMIN_MID, 7);
     var savedHrsWk = adminWk * AUTOMATABLE;
     var adminLeak = savedHrsWk * 52 * hourly;
 
     // Leak 4: content
     var contentLeak = 0, contentHrsWk = 0;
     if (a.content === 'agency') contentLeak = 900 * 12 * 0.5;
-    else if (a.content === 'diy') { contentHrsWk = 4; contentLeak = contentHrsWk * hourly * 52 * 0.7; }
+    else if (a.content === 'diy' || a.content === OTHER) { contentHrsWk = 4; contentLeak = contentHrsWk * hourly * 52 * 0.7; }
 
     // Leak 5: owner dependence
-    var ownerLeak = Math.min((REV_MID[a.revenue] || 400000) * (AWAY_FACTOR[a.awayTest] || 0), 48000);
+    var awayF = a.awayTest === OTHER ? 0.008 : (AWAY_FACTOR[a.awayTest] || 0);
+    var ownerLeak = Math.min(revenue * awayF, 48000);
 
-    var annual = Math.round(missedLeak + slowLeak + adminLeak + contentLeak + ownerLeak);
+    // credibility guard: recoverable value cannot exceed ~40% of revenue.
+    // Scale the hours by the same factor so the report stays internally consistent.
+    var raw = missedLeak + slowLeak + adminLeak + contentLeak + ownerLeak;
+    var revCap = revenue * 0.4;
+    if (raw > revCap && raw > 0) {
+      var k = revCap / raw;
+      missedLeak *= k; slowLeak *= k; adminLeak *= k; contentLeak *= k; ownerLeak *= k;
+      savedHrsWk *= k; contentHrsWk *= k;
+      raw = revCap;
+    }
+
+    var annual = Math.round(raw);
     var hoursYr = Math.round((savedHrsWk + contentHrsWk) * 52);
 
     /* system recommendations */
@@ -318,7 +435,9 @@
     show('report');
 
     const industryNames = { home: 'home services', trades: 'construction', realestate: 'real estate', ecom: 'e-commerce', agency: 'agency', health: 'health & wellness', food: 'hospitality', other: '' };
-    const ind = industryNames[answers.industry] || '';
+    const ind = answers.industry === OTHER
+      ? (answers.industry_text || '').trim().toLowerCase()
+      : (industryNames[answers.industry] || '');
     $('reportIntro').textContent = 'Based on your answers' + (ind ? ' and benchmarks for ' + ind + ' businesses' : '') +
       ', here is what running everything manually is costing you, and the systems that would win it back.';
 
