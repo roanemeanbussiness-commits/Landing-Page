@@ -1,7 +1,20 @@
 /* ============================================================
    Free Business Audit — questionnaire + report
-   Inherits palette from style.css (black + saffron)
+   Inherits the aethonintelligence.com system from style.css
    ============================================================ */
+/* map legacy names onto the site's tokens */
+:root{
+  --panel:var(--bg-2);
+  --panel-2:var(--tint);
+  --saffron-2:#ffb84d;
+  --saffron-deep:#c77300;
+  --muted-2:var(--faint);
+  --glow:var(--saffron-glow);
+  --font:var(--sans);
+  --mono:var(--sans);
+}
+.audit-body h1,.audit-body h2,.audit-body h3,.audit-body h4{font-family:var(--serif);font-weight:300}
+.audit-body .eyebrow{font-family:var(--sans);font-weight:500;letter-spacing:.28em;text-transform:uppercase;font-size:11px;color:var(--muted)}
 
 .audit-body{min-height:100vh;display:flex;flex-direction:column}
 .audit-main{flex:1;width:100%;max-width:760px;margin:0 auto;padding:clamp(36px,6vw,64px) clamp(20px,5vw,40px) 80px}
@@ -16,7 +29,7 @@
 @keyframes aIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
 /* intro */
-#intro h1{font-size:clamp(30px,5vw,44px);font-weight:800;letter-spacing:-.02em;line-height:1.1;margin:6px 0 18px}
+#intro h1{font-size:clamp(30px,5vw,46px);font-weight:300;letter-spacing:-.01em;line-height:1.08;margin:14px 0 18px}
 .a-sub{color:var(--muted);font-weight:300;font-size:clamp(15px,1.8vw,17px);max-width:56ch}
 .a-sub b{color:var(--ink);font-weight:600}
 .a-points{list-style:none;margin:26px 0 32px;display:flex;flex-direction:column;gap:10px}
@@ -26,7 +39,7 @@
 /* quiz */
 .q-head{margin-bottom:26px}
 .q-eyebrow{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--saffron);margin-bottom:12px}
-#qTitle{font-size:clamp(24px,3.6vw,34px);font-weight:800;letter-spacing:-.02em;line-height:1.15}
+#qTitle{font-size:clamp(24px,3.6vw,34px);font-weight:300;letter-spacing:-.02em;line-height:1.15}
 .q-hint{margin-top:10px;color:var(--muted-2);font-size:14px}
 .q-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .q-opt{position:relative;text-align:left;background:linear-gradient(165deg,var(--panel),var(--bg-2));border:1px solid var(--line);border-radius:14px;
@@ -51,7 +64,7 @@
 .scan-core{position:absolute;inset:22px;border-radius:50%;display:grid;place-items:center;background:rgba(241,195,56,.06)}
 .scan-core img{width:64%;height:64%;object-fit:contain;animation:pulseLogo 2s ease-in-out infinite}
 @keyframes pulseLogo{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.07);opacity:1}}
-.scan-title{font-size:clamp(22px,3.4vw,30px);font-weight:800;margin-bottom:26px}
+.scan-title{font-size:clamp(22px,3.4vw,30px);font-weight:300;margin-bottom:26px}
 .dots i{font-style:normal;animation:blink 1.2s infinite}
 .dots i:nth-child(2){animation-delay:.2s}.dots i:nth-child(3){animation-delay:.4s}
 @keyframes blink{0%,100%{opacity:.15}50%{opacity:1}}
@@ -64,24 +77,24 @@
 .scan-steps li.now::before{border-color:var(--saffron);box-shadow:0 0 10px var(--glow)}
 
 /* report */
-#report h1{font-size:clamp(28px,4.4vw,40px);font-weight:800;letter-spacing:-.02em;margin:6px 0 14px}
+#report h1{font-size:clamp(28px,4.4vw,40px);font-weight:300;letter-spacing:-.02em;margin:6px 0 14px}
 .r-banner{margin:30px 0 26px;padding:34px 30px;border-radius:20px;text-align:center;
   background:radial-gradient(circle at 50% 0%,rgba(241,195,56,.16),transparent 70%),linear-gradient(165deg,var(--panel),var(--bg-2));
   border:1px solid var(--saffron);box-shadow:0 24px 60px rgba(0,0,0,.4)}
 .r-banner-label{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--saffron)}
-.r-banner-num{margin:12px 0 10px;font-weight:800;letter-spacing:-.03em;font-size:clamp(44px,9vw,72px);line-height:1;color:var(--saffron)}
+.r-banner-num{margin:12px 0 10px;font-weight:300;letter-spacing:-.03em;font-size:clamp(44px,9vw,72px);line-height:1;color:var(--saffron)}
 .r-banner-num em{font-style:normal;font-size:clamp(16px,2.4vw,22px);color:var(--muted);font-weight:400;margin-left:6px}
 .r-banner-sub{color:var(--muted);font-size:15px}
 .r-banner-sub b{color:var(--ink);font-weight:700}
 
 .r-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:44px}
 .r-leak{background:linear-gradient(165deg,var(--panel),var(--bg-2));border:1px solid var(--line);border-radius:16px;padding:22px}
-.r-leak .amt{font-weight:800;font-size:clamp(22px,3vw,28px);color:var(--saffron);letter-spacing:-.02em}
+.r-leak .amt{font-weight:300;font-size:clamp(22px,3vw,28px);color:var(--saffron);letter-spacing:-.02em}
 .r-leak .amt em{font-style:normal;font-size:13px;color:var(--muted-2);font-weight:400}
 .r-leak h4{font-size:15px;font-weight:700;margin:8px 0 6px;color:var(--ink)}
 .r-leak p{font-size:13.5px;color:var(--muted);line-height:1.55}
 
-.r-systems h2,.r-cta h2{font-size:clamp(22px,3.4vw,30px);font-weight:800;letter-spacing:-.02em;margin-bottom:10px}
+.r-systems h2,.r-cta h2{font-size:clamp(22px,3.4vw,30px);font-weight:300;letter-spacing:-.02em;margin-bottom:10px}
 .r-sysgrid{display:flex;flex-direction:column;gap:12px;margin:22px 0 44px}
 .r-sys{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;background:var(--panel-2);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
 .r-sys .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:18px;background:linear-gradient(135deg,var(--saffron-2),var(--saffron-deep))}
